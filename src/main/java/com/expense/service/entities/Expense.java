@@ -13,6 +13,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Entity
 public class Expense {
     @Id
     @Column(name = "id")
@@ -39,15 +40,8 @@ public class Expense {
 
     @PrePersist
     @PreUpdate
-    private void generateExternalId(){
+    private void prepareEntity(){
         if(this.externalId == null) this.externalId = UUID.randomUUID().toString();
-    }
-
-    @PrePersist
-    @PreUpdate
-    private void generateCreatedAt(){
         if(this.createdAt == null) this.createdAt = new Timestamp(System.currentTimeMillis());
     }
-
-
 }
